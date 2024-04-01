@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 
 # Creating the StreamLit Page Configuration  
 st.set_page_config(
-    page_title="PhonePe Data Visualization",
+    page_title="PhonePe Pulse Data Visualization",
     page_icon="📈",
     layout="wide",
     initial_sidebar_state="expanded", )
