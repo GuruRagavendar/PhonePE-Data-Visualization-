@@ -39,7 +39,7 @@ elif selected == 'Geo Visualisation':
 
     # Indian Map Chart for User details
     if option == 'Users':
-        engine = create_engine('mysql+mysqlconnector://root:7295*MAthew@localhost/phonepe')
+        engine = create_engine('mysql+mysqlconnector://root:*****@localhost/phonepe')
         query = 'SELECT State, Sum(Count) as "Count of Users" FROM map_users WHERE Year = 2023 and Quater = 4 GROUP BY State ORDER BY "Count of Users" DESC'
         df = pd.read_sql(query,engine)
 
@@ -67,7 +67,7 @@ elif selected == 'Geo Visualisation':
 
     #Indain Map Chart for Transaction Details
     elif option == 'Transactions':
-        engine = create_engine('mysql+mysqlconnector://root:7295*MAthew@localhost/phonepe')
+        engine = create_engine('mysql+mysqlconnector://root:*****@localhost/phonepe')
         query = 'select State, sum(Transaction_count) as Transactions from map_transaction WHERE Year = 2023 and Quater = 4 group by state order by Transactions desc'
         df = pd.read_sql(query,engine)
         
@@ -104,13 +104,13 @@ elif selected == 'Charts':
 
         #Function to Retreive the details from MY SQL with State and year as arguments        
         def state_year(s,y):
-            engine = create_engine('mysql+mysqlconnector://root:7295*MAthew@localhost/phonepe')
+            engine = create_engine('mysql+mysqlconnector://root:*******@localhost/phonepe')
             query = f'SELECT state,Year, Quater,sum(Transacion_count) as Total_Transaction ,round(avg(Transacion_amount)) as Average_Amount FROM agg_transaction where state = "{s}" and Year = {y} group by Quater'
             sqdf = pd.read_sql(query,engine)
             quarter_mapping = {1: 'Q1', 2: 'Q2', 3: 'Q3', 4: 'Q4'}
             sqdf['Quater'] = sqdf['Quater'].map(quarter_mapping)
             return sqdf
-        engine = create_engine('mysql+mysqlconnector://root:7295*MAthew@localhost/phonepe')
+        engine = create_engine('mysql+mysqlconnector://root:*******@localhost/phonepe')
         query = 'Select state, Year from agg_transaction'
         Tempdf = pd.read_sql(query,engine)
         st.header("**:blue[State-Wise Quarterly Analysis of Total Transactions]**")
@@ -133,13 +133,13 @@ elif selected == 'Charts':
 
     with t2:
         def brand(b):
-            engine = create_engine('mysql+mysqlconnector://root:7295*MAthew@localhost/phonepe')
+            engine = create_engine('mysql+mysqlconnector://root:*******@localhost/phonepe')
             query = f'select state,Year, sum(User_count) as Total_Users from agg_users where brand = "{b}" group by state,Year'
             sqdf = pd.read_sql(query,engine)
             year_mapping = {2018: '2018', 2019: '2019', 2020: '2020', 2021: '2021',2022: '2022'}
             sqdf['Year'] = sqdf['Year'].map(year_mapping)
             return sqdf
-        engine = create_engine('mysql+mysqlconnector://root:7295*MAthew@localhost/phonepe')
+        engine = create_engine('mysql+mysqlconnector://root:*******@localhost/phonepe')
         query = 'Select brand from agg_users'
         Tempdf = pd.read_sql(query,engine)
         st.header("**:blue[Yearly analysis of Total users for each Brand]**")
@@ -158,11 +158,11 @@ elif selected == 'Charts':
             st.empty()
     with t3:
         def state_year(s,y):
-            engine = create_engine('mysql+mysqlconnector://root:7295*MAthew@localhost/phonepe')
+            engine = create_engine('mysql+mysqlconnector://root:*******@localhost/phonepe')
             query = f'SELECT district, SUM(Count) AS Transactions, SUM(amount) AS Amount FROM top_transaction_district WHERE state = "{s}" AND year = {y} GROUP BY district ORDER BY SUM(amount) desc limit  5'
             sqdf = pd.read_sql(query,engine)
             return sqdf
-        engine = create_engine('mysql+mysqlconnector://root:7295*MAthew@localhost/phonepe')
+        engine = create_engine('mysql+mysqlconnector://root:*******@localhost/phonepe')
         query = 'Select state, Year from top_transaction_district'
         Tempdf = pd.read_sql(query,engine)
         st.header("**:blue[Top 5 Districts with Highest Amounts]**")
@@ -207,11 +207,11 @@ elif selected == 'Charts':
     
     with t4:
         def state_quarter(s,q):
-            engine = create_engine('mysql+mysqlconnector://root:7295*MAthew@localhost/phonepe')
+            engine = create_engine('mysql+mysqlconnector://root:*******@localhost/phonepe')
             query = f'select District, Year, sum(Transaction_count)  as Count, sum(Amount) as Total_Amount from map_transaction  where state = "{s}" and quater = {q} group by District,Year'
             sqdf = pd.read_sql(query,engine)
             return sqdf
-        engine = create_engine('mysql+mysqlconnector://root:7295*MAthew@localhost/phonepe')
+        engine = create_engine('mysql+mysqlconnector://root:*******@localhost/phonepe')
         query = 'Select state, quater from map_transaction'
         Tempdf = pd.read_sql(query,engine)
         st.header("**:blue[Transaction Analysis: Yearly Trends by District in Selected State & Quarter]**")
@@ -236,11 +236,11 @@ elif selected == 'Charts':
 
     with t5:
         def state_year(s,y):
-            engine = create_engine('mysql+mysqlconnector://root:7295*MAthew@localhost/phonepe')
+            engine = create_engine('mysql+mysqlconnector://root:*******@localhost/phonepe')
             query = f'select Brand, sum(User_count) as total_users, round((sum(User_percentage) / 4),4) * 100 as Percentage from agg_users where state = "{s}" and year = {y} group by brand'
             sqdf = pd.read_sql(query,engine)
             return sqdf
-        engine = create_engine('mysql+mysqlconnector://root:7295*MAthew@localhost/phonepe')
+        engine = create_engine('mysql+mysqlconnector://root:*******@localhost/phonepe')
         query = 'Select state, Year from agg_users'
         Tempdf = pd.read_sql(query,engine)
         st.header("**:blue[User Percentage Distribution Across Brands by State and Year]**")
@@ -260,13 +260,13 @@ elif selected == 'Charts':
     
     with t6:
         def brand(s):
-            engine = create_engine('mysql+mysqlconnector://root:7295*MAthew@localhost/phonepe')
+            engine = create_engine('mysql+mysqlconnector://root:*******@localhost/phonepe')
             query = f'''with sq as (select Pincode,Year, quater,count, row_number() over(partition by Year order by Count desc) as row_num from top_user_pincode where state = "{s}")
                         select Pincode,Year, quater,count from sq where row_num < 20;'''
             sqdf = pd.read_sql(query,engine)
             sqdf['Pincode'] = sqdf['Pincode'].astype(str)
             return sqdf
-        engine = create_engine('mysql+mysqlconnector://root:7295*MAthew@localhost/phonepe')
+        engine = create_engine('mysql+mysqlconnector://root:*******@localhost/phonepe')
         query = 'Select state from top_user_pincode'
         Tempdf = pd.read_sql(query,engine)
         st.header("**:blue[Average User Distribution by Pincode and Year for Selected State]**")
