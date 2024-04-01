@@ -14,7 +14,7 @@ The result of this project will be a comprehensive and user-friendly solution fo
 **-> Python scripting**
 **-> Pandas**
 **-> MySQL**
-**-> mysql-connector-python** 
+**-> SQLalchemy** 
 **-> Streamlit** 
 **-> Plotly**
 
